@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Freewrite, Comment
 from django.utils import timezone
-from userapp.models import User
+from .models import Freewrite, Comment
+from .forms import CommentForm, FreewriteForm
 from django.core.paginator import Paginator
+# from userapp.models import User
 from django.contrib.auth.decorators import login_required # 로그인여부
+
 
 def index(request):
     now_page = request.GET.get('page', 1)
@@ -45,70 +47,67 @@ def detail(request, freewrite_id):
     return render(request, 'freeboard/freewrite_detail.html', context)
 
 
-from .forms import CommentForm
-@login_required (login_url='userapp:login')
-def comment_create(request, freewrite_id):
-    freewrite = get_object_or_404(Freewrite, pk=freewrite_id)
+# @login_required (login_url='userapp:login')
+# def comment_create(request, freewrite_id):
+#     freewrite = get_object_or_404(Freewrite, pk=freewrite_id)
     
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.comment_create_date = timezone.now()
-            comment.freewrite = freewrite
-            comment.username = request.user.username
-            comment.save()
-            return redirect('freeboard:detail', freewrite_id=freewrite.id)
-    else:
-        form = CommentForm()
+#     if request.method == "POST":
+#         form = CommentForm(request.POST)
+#         if form.is_valid():
+#             comment = form.save(commit=False)
+#             comment.comment_create_date = timezone.now()
+#             comment.freewrite = freewrite
+#             comment.username = request.user.username
+#             comment.save()
+#             return redirect('freeboard:detail', freewrite_id=freewrite.id)
+#     else:
+#         form = CommentForm()
     
-    context = {'freewrite': freewrite, 'form': form}
+#     context = {'freewrite': freewrite, 'form': form}
     
-    return render(request, 'freeboard/freewrite_detail.html', context)
+#     return render(request, 'freeboard/freewrite_detail.html', context)
 
 
-from .forms import FreewriteForm
-from userapp.models import User
-@login_required (login_url='userapp:login')
-def freewrite_create(request):
-    user = User.objects.get(username = request.user.username)
-    if request.method == 'POST':
-        form = FreewriteForm(request.POST)
-        if form.is_valid():
-            freewrite = form.save(commit=False)
-            freewrite.free_pub_date = timezone.now()
-            freewrite.username = request.user.username
-            freewrite.save()
-            user.score = user.score + 5
-            user.save()
-            return redirect('freeboard:index')
-    else:
-        form = FreewriteForm()
+# @login_required (login_url='userapp:login')
+# def freewrite_create(request):
+#     user = User.objects.get(username = request.user.username)
+#     if request.method == 'POST':
+#         form = FreewriteForm(request.POST)
+#         if form.is_valid():
+#             freewrite = form.save(commit=False)
+#             freewrite.free_pub_date = timezone.now()
+#             freewrite.username = request.user.username
+#             freewrite.save()
+#             user.score = user.score + 5
+#             user.save()
+#             return redirect('freeboard:index')
+#     else:
+#         form = FreewriteForm()
 
-    context = {'form': form}
+#     context = {'form': form}
 
-    return render(request, 'freeboard/freewrite_form.html', context)
+#     return render(request, 'freeboard/freewrite_form.html', context)
 
 
-@login_required (login_url='userapp:login2')
-def freewrite_create2(request):
-    user = User.objects.get(username = request.user.username)
-    if request.method == 'POST':
-        form = FreewriteForm(request.POST)
-        if form.is_valid():
-            freewrite = form.save(commit=False)
-            freewrite.free_pub_date = timezone.now()
-            freewrite.username = request.user.username
-            freewrite.save()
-            user.score = user.score + 5
-            user.save()
-            return redirect('freeboard:index2')
-    else:
-        form = FreewriteForm()
+# @login_required (login_url='userapp:login2')
+# def freewrite_create2(request):
+#     user = User.objects.get(username = request.user.username)
+#     if request.method == 'POST':
+#         form = FreewriteForm(request.POST)
+#         if form.is_valid():
+#             freewrite = form.save(commit=False)
+#             freewrite.free_pub_date = timezone.now()
+#             freewrite.username = request.user.username
+#             freewrite.save()
+#             user.score = user.score + 5
+#             user.save()
+#             return redirect('freeboard:index2')
+#     else:
+#         form = FreewriteForm()
 
-    context = {'form': form}
+#     context = {'form': form}
 
-    return render(request, 'freeboard/freewrite_form2.html', context)
+#     return render(request, 'freeboard/freewrite_form2.html', context)
 
 
 def update(request, freewrite_id):
