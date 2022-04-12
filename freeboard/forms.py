@@ -12,7 +12,6 @@ class FreewriteForm(forms.ModelForm):
             'free_content': '내용',
         }
 
-
 class CommentForm(forms.ModelForm):
     
     class Meta:
@@ -21,5 +20,3 @@ class CommentForm(forms.ModelForm):
         labels = {
         'comment_content': '댓글내용',
         }
-
-
