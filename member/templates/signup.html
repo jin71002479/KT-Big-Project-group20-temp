@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<div class="container my-3">
+    <div class="row my-3">
+        <div class="col-4">
+            <h4>계정생성</h4>
+        </div>
+        <div class="col-8 text-right">
+            <span>또는 <a href="{% url 'member:login' %}">로그인 하세요.</a></span>
+        </div>
+    </div>
+    <form method="post" class="post-form">
+        {% csrf_token %}
+
+        {% include "form_errors.html" %}
+        
+        <div class="form-group">
+            <label for="user_id">아이디(Id)</label>
+            <input type="text" class="form-control" name="user_id" id="user_id"
+                value="{{ form.user_id.value | default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="password">비밀번호(Password)</label>
+            <input type="password" class="form-control" name="password" id="password"
+                value="{{ form.password1.value | default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="password">비밀번호(Password) 확인</label>
+            <input type="password" class="form-control" name="password" id="password2"
+                value="{{ form.password2.value | default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="name">성함(Name)</label>
+            <input type="text" class="form-control" name="name" id="name"
+                value="{{ form.username.value | default_if_none:'' }}">
+        <div>
+        <div class="form-group">
+            <label for="PhoneNumber">전화번호(PhoneNumber)</label>
+            <input type="PhoneNumber" class="form-control" name="PhoneNumber" id="username"
+                value="{{ form.username.value | default_if_none:'' }}">
+        <div>
+        <div class="form-group">
+            <label for="age">나이(age)</label>
+            <input type="age" class="form-control" name="age" id="age"
+                value="{{ form.username.value | default_if_none:'' }}">
+        <div>
+        <div class="form-group">
+            <label for="gender">성별(gender)</label>
+            <input type="gender" class="form-control" name="gender" id="gender"
+                value="{{ form.username.value | default_if_none:'' }}">
+        <div>
+         <div class="form-group">
+            <label for="parmacy">자주가는 약국(parmacy)</label>
+            <input type="parmacy" class="form-control" name="parmacy" id="parmacy"
+                value="{{ form.username.value | default_if_none:'' }}">
+        <div>        
+            
+        <div class="form-group">
+            <label for="relation" class="text-black">환자와의 관계(Relation) <span class="text-danger" name="relation" id="relation"></span></label>
+            
+    
+            <select id="relation" class="form-control">
+                
+                <option value="1">부모</option>
+                <option value="2">배우자</option>
+                <option value="3">자녀</option>
+                <option value="4">형제</option>
+                <option value="5">간병인</option>
+                <option value="6">친인척</option>
+                
+                
+                
+                </select>
+              </div>
+        </div>
+        <button type="submit" class="btn btn-primary">생성하기</button>
+      </form>
+    </div>
+    
