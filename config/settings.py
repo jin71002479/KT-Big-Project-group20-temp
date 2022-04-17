@@ -124,3 +124,4 @@ LOGIN_REDIRECT_URL = '/member/login/'
 LOGOUT_REDIRECT_URL = '/member/login/'
 AUTH_USER_MODEL = 'member.User'
 SILENCED_SYSTEM_CHECKS = ['auth.E003', 'auth.W004']
+LOGIN_URL= '/auth/login/'

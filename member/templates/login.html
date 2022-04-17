@@ -1,28 +1,14 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<div class="container my-3">
-    <form method="post" class="post-form" action="{% url 'member:login' %}">
-        {% csrf_token %}
-        {% include "form_errors.html" %}
-        <div class="form-group">
-            <label for="username">사용자ID</label>
-            <input type="text" class="form-control" name="username" id="username"
-                value="{{ form.username.value | default_if_none:'' }}">
-        </div>
-        <div class="form-group">
-            <label for="password">비밀번호</label>
-            <input type="password" class="form-control" name="password" id="password"
-                value="{{ form.password.value | default_if_none:'' }}">
-        </div>
-        <button type="submit" class="btn btn-primary">로그인</button>
-        <button type="submit" class="btn btn-primary">회원가입</button>
-    </form>
-</div>
-
-</form>
-
+<br>
     {% if user.is_authenticated %}
-        <p>{{ user.username }} 님 반갑습니다.</p>
+        로그인성공
+        {{  user.username }} 님 반갑습니다.
+    <a href = "{%url 'member:logout'%}">로그아웃</a>
     {% else %}
-        <p>현재 상태 : Guest</p>
+    <form method="post" action="{% url 'member:login' %}">
+        {% csrf_token %}
+        아이디 : <input type="text" name="username"><br>
+        비밀번호 : <input type="password" name="password"><br>
+        <input type="submit" value="로그인">
+        </form>
+    <p>현재 상태 : Guest</p>
     {% endif %}
-</div>
